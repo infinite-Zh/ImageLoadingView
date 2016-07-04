@@ -86,12 +86,15 @@ public class ImageLoadingView extends View {
         canvas.restoreToCount(saveLayerCount);
 
         // 改变Rect区域，真实情况下时提供接口传入进度，计算高度
-        mCurrentTop --;
+//        mCurrentTop --;
+        float ratio=(float)mProgress/100;
+        int height=mBitHeight;
+        mCurrentTop= -(int) (height*(1-ratio));
+        Log.e("top",mCurrentTop+"");
         if (mCurrentTop <= mEnd) {
             mCurrentTop = mStart;
         }
         mDynamicRect.top = mCurrentTop;
-        postInvalidate();
     }
 
     /**
@@ -100,6 +103,7 @@ public class ImageLoadingView extends View {
      */
     public void setProgress(int progress){
         mProgress=progress;
+        postInvalidate();
     }
 
     @Override

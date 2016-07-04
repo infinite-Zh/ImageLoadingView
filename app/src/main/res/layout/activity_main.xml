@@ -14,6 +14,7 @@
     <com.infinite.imageloadingview.ImageLoadingView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/loadingView"
         android:layout_centerInParent="true"
         app:loading_view_res="@mipmap/infinite"/>
 </RelativeLayout>
