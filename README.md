@@ -43,4 +43,5 @@ loadingView.setProgress(msg.arg1);
 ---
 
 效果图
+
 ![](https://github.com/infinite-Zh/ImageLoadingView/raw/master/GIF.gif)
