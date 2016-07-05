@@ -12,7 +12,7 @@
        android:layout_below="@+id/loadingView"
        app:loadingView="@mipmap/ic_github"/>
        ```
-
+---
 属性说明：
 ```
 <resources>
@@ -27,16 +27,20 @@
 |:-:|:-:|
 |已完成进度的颜色|图片资源|
 
-
+---
 在代码中设置方式：
 
-```
+```Java
 loadingView.setLoadingView(R.mipmap.infinite);
 loadingView.setIndeterminateColor(Color.GRAY);
 ```
-
+---
 最后，设置进度：
 
-```
+```Java
 loadingView.setProgress(msg.arg1);
 ```
+---
+
+效果图
+![](https://github.com/infinite-Zh/ImageLoadingView/raw/master/GIF.gif)
