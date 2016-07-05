@@ -1,4 +1,5 @@
 # ImageLoadingView
+![](https://github.com/infinite-Zh/ImageLoadingView/raw/master/app/src/main/res/mipmap-hdpi/infinite.png)
 以图片作为进度条展示
 
 
