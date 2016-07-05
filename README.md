@@ -1,5 +1,5 @@
 # ImageLoadingView
-已图片作为进度条展示
+以图片作为进度条展示
 
 
 在xml中引用：
@@ -40,7 +40,3 @@ loadingView.setIndeterminateColor(Color.GRAY);
 ```
 loadingView.setProgress(msg.arg1);
 ```
-
-效果图：
-
-![](GIF.gif)
