@@ -14,7 +14,14 @@
     <com.infinite.imageloadingview.ImageLoadingView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/loadingView"
-        android:layout_centerInParent="true"
-        app:loading_view_res="@mipmap/infinite"/>
+        android:id="@+id/loadingView"/>
+
+    <com.infinite.imageloadingview.ImageLoadingView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/loadingView2"
+        app:indeterminateColor="#00bb9c"
+        android:layout_below="@+id/loadingView"
+        app:loadingView="@mipmap/ic_github"/>
+
 </RelativeLayout>

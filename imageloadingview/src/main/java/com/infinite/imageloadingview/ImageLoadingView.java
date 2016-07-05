@@ -12,7 +12,6 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 
@@ -33,6 +32,8 @@ public class ImageLoadingView extends View {
     private int mCurrentTop;
     private int mStart, mEnd;
 
+    private int mIndeterminateColor;
+
     private int mProgress;
 
 
@@ -41,7 +42,8 @@ public class ImageLoadingView extends View {
         mResources = getResources();
         TypedArray array=context.obtainStyledAttributes(attrs,R.styleable.ImageLoadingView);
 
-        int res= array.getResourceId(R.styleable.ImageLoadingView_loading_view_res,0);
+        int res= array.getResourceId(R.styleable.ImageLoadingView_loadingView,0);
+        mIndeterminateColor= array.getColor(R.styleable.ImageLoadingView_indeterminateColor,Color.RED);
         initBitmap(res);
         initPaint();
         initXfermode();
@@ -58,14 +60,32 @@ public class ImageLoadingView extends View {
         mBitPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mBitPaint.setFilterBitmap(true);
         mBitPaint.setDither(true);
-        mBitPaint.setColor(Color.RED);
+        mBitPaint.setColor(mIndeterminateColor);
+
     }
 
     private void initBitmap(int res) {
+        if (res<=0)
+            return;
         // 初始化bitmap
         mBitmap = BitmapFactory.decodeResource(getResources(),res);
         mBitWidth = mBitmap.getWidth();
         mBitHeight = mBitmap.getHeight();
+    }
+
+    /**
+     * @param resId 图片资源id
+     */
+    public void setLoadingView(int resId){
+        initBitmap(resId);
+    }
+
+    /**
+     * @param color 已完成进度的颜色
+     */
+    public void setIndeterminateColor(int color){
+        mIndeterminateColor=color;
+        initPaint();
     }
 
     @Override
@@ -85,24 +105,20 @@ public class ImageLoadingView extends View {
         // 恢复保存的图层；
         canvas.restoreToCount(saveLayerCount);
 
-        // 改变Rect区域，真实情况下时提供接口传入进度，计算高度
-//        mCurrentTop --;
-        float ratio=(float)mProgress/100;
-        int height=mBitHeight;
-        mCurrentTop= -(int) (height*(1-ratio));
-        Log.e("top",mCurrentTop+"");
-        if (mCurrentTop <= mEnd) {
-            mCurrentTop = mStart;
-        }
-        mDynamicRect.top = mCurrentTop;
     }
 
     /**
      *
-     * @param progress 以
+     * @param progress 最大值为100
      */
     public void setProgress(int progress){
         mProgress=progress;
+        float ratio=(float)mProgress/100;
+        int height=mBitHeight;
+        mCurrentTop= (int) (height*(1-ratio));
+        if(mDynamicRect!=null){
+            mDynamicRect.top = mCurrentTop;
+        }
         postInvalidate();
     }
 
@@ -143,6 +159,5 @@ public class ImageLoadingView extends View {
         mCurrentTop = mStart;
         mEnd = left;
         mDynamicRect = new Rect(left, mStart, left + mBitWidth, left + mBitHeight);
-        Log.e("onSizeChanged",w+"");
     }
 }
